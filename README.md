@@ -33,7 +33,6 @@ python MinecraftLog4jAutopwn.py --target <target_IP> --username <minecraft_usern
 
 - `--target`: Specify the IP address of the target Minecraft server.
 - `--username`: Provide the username for authenticating with the Minecraft server.
-- `--password`: Supply the password for authenticating with the Minecraft server.
 - `--LHOST`: Specify the IP address of your machine where payloads will be delivered.
 
 ## Examples
