@@ -12,7 +12,7 @@ note: you might need to change the java compiler version if the server was compi
 
 - **HTTP and LDAP Server Setup**: Automatically sets up HTTP and LDAP servers for delivering payloads to the target Minecraft server.
 
-- **Payload Injection**: Inject payloads into Minecraft servers seamlessly, with support for both Linux and Windows targets.
+- **Payload Injection**: Inject payloads into Minecraft servers seamlessly, with support Windows targets and eventually Linux targets.
 
 - **Flexible Authentication**: Support for authenticating with Minecraft servers using usernames and passwords.
 
