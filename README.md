@@ -4,6 +4,8 @@
 
 Are you tired of manually exploiting Minecraft servers using Log4j vulnerabilities? Say no more! Introducing MinecraftLog4jAutopwn – your ultimate tool for automating the exploitation process, saving you time and effort. With MinecraftLog4jAutopwn, effortlessly exploit Minecraft servers with Log4j vulnerabilities and gain access efficiently!
 
+note: you might need to change the java compiler version if the server was compiled with a different version then my example
+
 ## Key Features
 
 - **Automated Exploitation**: MinecraftLog4jAutopwn automates the entire process of exploiting Minecraft servers with Log4j vulnerabilities, streamlining your workflow and saving valuable time.
@@ -18,7 +20,7 @@ Are you tired of manually exploiting Minecraft servers using Log4j vulnerabiliti
 
 ```bash
 git clone https://github.com/yourusername/MinecraftLog4jAutopwn.git
-pip install -r requirements.txt
+
 ```
 
 ## Usage
